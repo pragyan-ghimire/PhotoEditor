@@ -50,6 +50,17 @@ class PhotoController:
             self.cv_img = transform.rotate(self.cv_img, angle= int(self.view.rotate_angle_entry.get()))
             self._refresh_view()
     
+    def apply_crop(self):
+        if self.cv_img is not None:
+            self.cv_img = transform.crop(
+                self.cv_img, 
+                from_row= int(self.view.from_row_entry.get()),
+                to_row= int(self.view.to_row_entry.get()),
+                from_col= int(self.view.from_col_entry.get()),
+                to_col= int(self.view.to_col_entry.get()),
+                )
+            self._refresh_view()
+    
     def _refresh_view(self):
         tk_img = cv_to_tk(self.cv_img)
         self.view.show_image(tk_img)

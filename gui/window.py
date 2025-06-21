@@ -56,7 +56,7 @@ class App(CTk):
         filterMenu.add_command(label="Blur", command=self.controller.apply_blur)
 
         editMenu.add_command(label="Resize", command= self.resize_clicked)
-        editMenu.add_command(label="Crop")
+        editMenu.add_command(label="Crop", command= self.crop_clicked)
         editMenu.add_command(label="Flip", command= self.filp_clicked)
         editMenu.add_command(label="Rotate", command= self.rotate_clicked)
 
@@ -129,6 +129,83 @@ class App(CTk):
                 command= self.controller.apply_resize
                 )
             self.resize_button.grid(row=3, column = 0)
+    
+    # once cropped then if again cropping is applied, it applies to already cropped image.
+    def crop_clicked(self):
+
+        self.clear_setting_frame()
+        if self.imageLabel.cget("image") is not None:
+
+            # select row
+            self.from_row_label = CTkLabel(
+                self.setting_frame,
+                text="From row:",
+                font=("Arial", 24),      
+                padx= 24,
+                pady = 24
+                )
+            self.from_row_label.grid(row= 0, column= 0, sticky= "w")
+
+            self.from_row_entry = CTkEntry(
+                self.setting_frame,
+                font=("Arial", 24),
+            )
+            self.from_row_entry.grid(row= 0, column= 1, sticky= "w")
+
+            self.to_row_label = CTkLabel(
+                self.setting_frame,
+                text="To row:",
+                font=("Arial", 24),      
+                padx= 24,
+                pady = 24
+                )
+            self.to_row_label.grid(row= 1, column= 0, sticky= "w")
+
+            self.to_row_entry = CTkEntry(
+                self.setting_frame,
+                font=("Arial", 24),
+            )
+            self.to_row_entry.grid(row= 1, column= 1, sticky= "w")
+
+            # select col
+            self.from_col_label = CTkLabel(
+                self.setting_frame,
+                text="From col:",
+                font=("Arial", 24),      
+                padx= 24,
+                pady = 24
+                )
+            self.from_col_label.grid(row= 2, column= 0, sticky= "w")
+
+            self.from_col_entry = CTkEntry(
+                self.setting_frame,
+                font=("Arial", 24),
+            )
+            self.from_col_entry.grid(row= 2, column= 1, sticky= "w")
+
+            self.to_col_label = CTkLabel(
+                self.setting_frame,
+                text="To col:",
+                font=("Arial", 24),      
+                padx= 24,
+                pady = 24
+                )
+            self.to_col_label.grid(row= 3, column= 0, sticky= "w")
+
+            self.to_col_entry = CTkEntry(
+                self.setting_frame,
+                font=("Arial", 24),
+            )
+            self.to_col_entry.grid(row= 3, column= 1, sticky= "w")
+
+            # crop button
+            self.crop_button = CTkButton(
+                self.setting_frame, 
+                text="Crop",
+                font=("Arial", 24),
+                command= self.controller.apply_crop
+                )
+            self.crop_button.grid(row=4, column = 0)
 
     def filp_clicked(self):
         # print("filp from menu clicked")
