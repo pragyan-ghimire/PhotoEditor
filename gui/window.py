@@ -4,7 +4,7 @@ from controller import app_controller
 
 
 class App(CTk):
-    showResize, showCrop, showRotate, showFlip = False, False, False, False
+    # showResize, showCrop, showRotate, showFlip = False, False, False, False
 
 
     def __init__(self):
@@ -71,8 +71,9 @@ class App(CTk):
     def resize_clicked(self):
         # print("resize from menu clicked")
         # print(self.imageLabel.cget("image"))
-        self.showResize, self.showCrop, self.showRotate, self.showFlip = True, False, False, False
-        if self.showResize and self.imageLabel.cget("image") is not None:
+        # self.showResize, self.showCrop, self.showRotate, self.showFlip = True, False, False, False
+        self.clear_setting_frame()
+        if self.imageLabel.cget("image") is not None:
             self.resize_width_label = CTkLabel(
                 self.setting_frame,
                 text="Width:",
@@ -129,13 +130,12 @@ class App(CTk):
                 )
             self.resize_button.grid(row=3, column = 0)
 
-
     def filp_clicked(self):
         # print("filp from menu clicked")
         # print(self.imageLabel.cget("image"))
-        self.showResize, self.showCrop, self.showRotate, self.showFlip = False, False, False, True
-
-        if self.showFlip and self.imageLabel.cget("image") is not None:
+        # self.showResize, self.showCrop, self.showRotate, self.showFlip = False, False, False, True
+        self.clear_setting_frame()
+        if self.imageLabel.cget("image") is not None:
             self.flip_value_label = CTkLabel(
                 self.setting_frame,
                 text="Value:",
@@ -189,6 +189,9 @@ class App(CTk):
                 )
             self.flip_value_label.grid(row= 4, column= 0, sticky= "w")
 
+    def clear_setting_frame(self):
+        for widget in self.setting_frame.winfo_children():
+            widget.destroy()
 
 
 
