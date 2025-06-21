@@ -14,7 +14,7 @@ def rotate(image, angle, rotPoint = None):
     
     rotMat = cv2.getRotationMatrix2D(rotPoint, angle, 1.0)
     dimensions = (width,height)
-    return cv2.warpAffine(img, rotMat, dimensions)
+    return cv2.warpAffine(image, rotMat, dimensions)
 
 def flip(image, value):
     return cv2.flip(image, value)
