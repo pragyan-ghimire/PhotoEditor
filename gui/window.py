@@ -10,6 +10,21 @@ class App(CTk):
         self.after(100, lambda: self.state("zoomed"))
         self.title("Photo Editor")
 
+        self.grid_columnconfigure((0), weight=1) # setting frame
+        self.grid_columnconfigure((1), weight=3) # image_frame
+        self.grid_rowconfigure(0, weight=1)# allow vertical stretch
+        self.controller = app_controller.PhotoController(self)
+
+        self.setting_frame = CTkFrame(
+            self,
+            fg_color="#ff6600",
+        )
+        self.setting_frame.grid_columnconfigure((0), weight=1)
+        self.setting_frame.grid(row=0, column=0, sticky="nsew")
+
+        self.image_frame = CTkFrame(self, fg_color="light yellow")
+        self.image_frame.grid(row=0, column=1, sticky="nsew")
+
         menubar = Menu(self)
         self.config(menu=menubar)
 
