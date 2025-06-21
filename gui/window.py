@@ -48,7 +48,7 @@ class App(CTk):
         menubar.add_cascade(label="Edit", menu=editMenu)
 
         fileMenu.add_command(label="Open", command=self.controller.load_image)
-        fileMenu.add_command(label="Save")
+        fileMenu.add_command(label="Save", command= self.controller.save_image)
         fileMenu.add_separator()
         fileMenu.add_command(label="Exit", command=quit)
 

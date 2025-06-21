@@ -1,5 +1,5 @@
 from PIL import Image
-from utils.file_utils import openImage
+from utils.file_utils import openImage, saveImage
 from editor.utils import cv_format_image, cv_to_tk
 from editor import filter, transform
 import cv2
@@ -20,6 +20,10 @@ class PhotoController:
             pil_image = Image.open(path).convert("RGB")
             self.cv_img = cv_format_image(pil_image)
             self._refresh_view()
+    
+    def save_image(self):
+        if self.cv_img is not None:
+            saveImage(self.cv_img)
 
     def apply_gray(self):
         if self.cv_img is not None:
