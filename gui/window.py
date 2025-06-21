@@ -62,13 +62,13 @@ class App(CTk):
 
     def cvt_gray_scale(self):
         if self.cv_image is not None:
-            self.gray_image = gray_scale(self.cv_image)
-            self.tk_image = cv_to_tk(self.gray_image)
+            self.cv_image = gray_scale(self.cv_image) # so that we can apply gray scale filter on same selected image
+            self.tk_image = cv_to_tk(self.cv_image)
             self.imageLabel.configure(image=self.tk_image)
         
     def blur_image(self):
         if self.cv_image is not None:
-            self.blur = blur(self.cv_image)
-            self.tk_image = cv_to_tk(self.blur)
+            self.cv_image = blur(self.cv_image)
+            self.tk_image = cv_to_tk(self.cv_image) # so that we can apply blur filter on same selected image
             self.imageLabel.configure(image=self.tk_image)
         
