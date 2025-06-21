@@ -189,6 +189,7 @@ class App(CTk):
                 )
             self.flip_value_label.grid(row= 4, column= 0, sticky= "w")
     
+    # Todo: rotating is clipping the image
     def rotate_clicked(self):
         # print("filp from menu clicked")
         self.clear_setting_frame()
