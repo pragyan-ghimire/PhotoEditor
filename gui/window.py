@@ -1,5 +1,9 @@
 from tkinter import Menu
 from customtkinter import *
+from utils.file_utils import openImage
+import cv2
+from PIL import Image
+from editor.utils import cv_format_image, cv_to_tk
 
 class App(CTk):
     def __init__(self):
@@ -26,7 +30,7 @@ class App(CTk):
         menubar.add_cascade(label="Filter", menu = filterMenu)
         menubar.add_cascade(label="Edit", menu = editMenu)
 
-        fileMenu.add_command(label= "Open") 
+        fileMenu.add_command(label= "Open", command= self.load_image) 
         fileMenu.add_command(label= "Save")
         fileMenu.add_separator()
         fileMenu.add_command(label= "Exit", command=quit)
@@ -39,12 +43,19 @@ class App(CTk):
         editMenu.add_command(label= "Flip")
         editMenu.add_command(label= "Rotate")
 
+        self.imageLabel = CTkLabel(self, text="")
+        self.imageLabel.pack(pady=20)
 
-    #     self.upload = CTkButton(self, text= "Upload", command= self.upload_click)
-    #     self.upload.pack()
+    def load_image(self):
+        filepath = openImage()
+        if filepath:
+            pil_image = Image.open(filepath).convert("RGB")
+            self.cv_image = cv_format_image(pil_image)
+            self.show_image()
+            
+    def show_image(self):
+        if self.cv_image is not None:
+            self.tk_image = cv_to_tk(self.cv_image)
+            self.imageLabel.configure(image=self.tk_image)
 
-    # def upload_click():
-    #     print("Upload clicked")
-
-app = App()
-app.mainloop()
+        
