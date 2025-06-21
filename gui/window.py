@@ -8,7 +8,8 @@ from editor.utils import cv_format_image, cv_to_tk
 class App(CTk):
     def __init__(self):
         super().__init__()
-        self.geometry("600x500")
+        # self.geometry("600x500")
+        self.after(100, lambda: self.state("zoomed"))
         self.title("Photo Editor")
 
         menubar = Menu(self)
