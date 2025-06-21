@@ -125,6 +125,7 @@ class App(CTk):
                 self.setting_frame, 
                 text="Resize",
                 font=("Arial", 24),
+                command= self.controller.apply_resize
                 )
             self.resize_button.grid(row=3, column = 0)
 
