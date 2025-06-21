@@ -45,6 +45,11 @@ class PhotoController:
             self.cv_img = transform.flip(self.cv_img, value= int(self.view.flip_value_menu.get()))
             self._refresh_view()
     
+    def apply_rotate(self):
+        if self.cv_img is not None:
+            self.cv_img = transform.rotate(self.cv_img, angle= int(self.view.rotate_angle_entry.get()))
+            self._refresh_view()
+    
     def _refresh_view(self):
         tk_img = cv_to_tk(self.cv_img)
         self.view.show_image(tk_img)

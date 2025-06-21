@@ -58,7 +58,7 @@ class App(CTk):
         editMenu.add_command(label="Resize", command= self.resize_clicked)
         editMenu.add_command(label="Crop")
         editMenu.add_command(label="Flip", command= self.filp_clicked)
-        editMenu.add_command(label="Rotate")
+        editMenu.add_command(label="Rotate", command= self.rotate_clicked)
 
         # self.text = CTkLabel(self.setting_frame, text="Some text")
         # self.text.pack()
@@ -188,6 +188,37 @@ class App(CTk):
                 pady = 24
                 )
             self.flip_value_label.grid(row= 4, column= 0, sticky= "w")
+    
+    def rotate_clicked(self):
+        # print("filp from menu clicked")
+        self.clear_setting_frame()
+
+        if self.imageLabel.cget("image") is not None:
+
+            self.rotate_angle_label = CTkLabel(
+                self.setting_frame,
+                text="Angle:",
+                font=("Arial", 24),      
+                padx= 24,
+                pady = 24
+                )
+            self.rotate_angle_label.grid(row= 0, column= 0, sticky= "w")
+
+            self.rotate_angle_entry = CTkEntry(
+                self.setting_frame,
+                font=("Arial", 24),
+            )
+            self.rotate_angle_entry.grid(row= 0, column= 1, sticky= "w")
+
+            self.rotate_button = CTkButton(
+                self.setting_frame, 
+                text="Rotate",
+                font=("Arial", 24),
+                command= self.controller.apply_rotate
+                )
+            self.rotate_button.grid(row=1, column = 0)
+
+
 
     def clear_setting_frame(self):
         for widget in self.setting_frame.winfo_children():
