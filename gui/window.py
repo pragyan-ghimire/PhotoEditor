@@ -1,10 +1,7 @@
 from tkinter import Menu
 from customtkinter import *
-from utils.file_utils import openImage
-import cv2
-from PIL import Image
-from editor.utils import cv_format_image, cv_to_tk
-from editor.filter import *
+from controller import app_controller
+
 
 class App(CTk):
     def __init__(self):
@@ -14,61 +11,43 @@ class App(CTk):
         self.title("Photo Editor")
 
         menubar = Menu(self)
-        self.config(menu= menubar)
+        self.config(menu=menubar)
 
         fileMenu = Menu(
             menubar,
-            tearoff= 0,
+            tearoff=0,
         )
         filterMenu = Menu(
             menubar,
-            tearoff= 0,
+            tearoff=0,
         )
         editMenu = Menu(
             menubar,
-            tearoff= 0,
+            tearoff=0,
         )
-        menubar.add_cascade(label="File", menu = fileMenu)
-        menubar.add_cascade(label="Filter", menu = filterMenu)
-        menubar.add_cascade(label="Edit", menu = editMenu)
+        menubar.add_cascade(label="File", menu=fileMenu)
+        menubar.add_cascade(label="Filter", menu=filterMenu)
+        menubar.add_cascade(label="Edit", menu=editMenu)
 
-        fileMenu.add_command(label= "Open", command= self.load_image) 
-        fileMenu.add_command(label= "Save")
+        fileMenu.add_command(label="Open", command=self.controller.load_image)
+        fileMenu.add_command(label="Save")
         fileMenu.add_separator()
-        fileMenu.add_command(label= "Exit", command=quit)
+        fileMenu.add_command(label="Exit", command=quit)
 
-        filterMenu.add_command(label= "GrayScale", command= self.cvt_gray_scale )
-        filterMenu.add_command(label= "Blur", command=self.blur_image )
+        filterMenu.add_command(label="GrayScale", command=self.controller.apply_gray)
+        filterMenu.add_command(label="Blur", command=self.controller.apply_blur)
 
-        editMenu.add_command(label= "Resize" )
-        editMenu.add_command(label= "Crop" )
-        editMenu.add_command(label= "Flip")
-        editMenu.add_command(label= "Rotate")
+        editMenu.add_command(label="Resize")
+        editMenu.add_command(label="Crop")
+        editMenu.add_command(label="Flip")
+        editMenu.add_command(label="Rotate")
 
-        self.imageLabel = CTkLabel(self, text="")
+        # self.text = CTkLabel(self.setting_frame, text="Some text")
+        # self.text.pack()
+
+        self.imageLabel = CTkLabel(self.image_frame, text="")
         self.imageLabel.pack(pady=20)
 
-    def load_image(self):
-        filepath = openImage()
-        if filepath:
-            pil_image = Image.open(filepath).convert("RGB")
-            self.cv_image = cv_format_image(pil_image)
-            self.show_image()
-            
-    def show_image(self):
-        if self.cv_image is not None:
-            self.tk_image = cv_to_tk(self.cv_image)
-            self.imageLabel.configure(image=self.tk_image)
-
-    def cvt_gray_scale(self):
-        if self.cv_image is not None:
-            self.cv_image = gray_scale(self.cv_image) # so that we can apply gray scale filter on same selected image
-            self.tk_image = cv_to_tk(self.cv_image)
-            self.imageLabel.configure(image=self.tk_image)
-        
-    def blur_image(self):
-        if self.cv_image is not None:
-            self.cv_image = blur(self.cv_image)
-            self.tk_image = cv_to_tk(self.cv_image) # so that we can apply blur filter on same selected image
-            self.imageLabel.configure(image=self.tk_image)
-        
+    def show_image(self, ctk_img):
+        self.imageLabel.configure(image=ctk_img)
+        self.imageLabel.image = ctk_img
