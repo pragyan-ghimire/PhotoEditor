@@ -57,7 +57,7 @@ class App(CTk):
 
         editMenu.add_command(label="Resize", command= self.resize_clicked)
         editMenu.add_command(label="Crop")
-        editMenu.add_command(label="Flip")
+        editMenu.add_command(label="Flip", command= self.filp_clicked)
         editMenu.add_command(label="Rotate")
 
         # self.text = CTkLabel(self.setting_frame, text="Some text")
@@ -128,6 +128,66 @@ class App(CTk):
                 command= self.controller.apply_resize
                 )
             self.resize_button.grid(row=3, column = 0)
+
+
+    def filp_clicked(self):
+        # print("filp from menu clicked")
+        # print(self.imageLabel.cget("image"))
+        self.showResize, self.showCrop, self.showRotate, self.showFlip = False, False, False, True
+
+        if self.showFlip and self.imageLabel.cget("image") is not None:
+            self.flip_value_label = CTkLabel(
+                self.setting_frame,
+                text="Value:",
+                font=("Arial", 24),      
+                padx= 24,
+                pady = 24
+                )
+            self.flip_value_label.grid(row= 0, column= 0, sticky= "w")
+
+            self.flip_value_menu = CTkOptionMenu(
+                self.setting_frame,
+                values=["0", "1","-1"],
+                font=("Arial", 24),
+                )
+            self.flip_value_menu.set("1")
+            self.flip_value_menu.grid(row= 0, column= 1,sticky= "w")
+
+            self.flip_button = CTkButton(
+                self.setting_frame, 
+                text="Flip",
+                font=("Arial", 24),
+                command= self.controller.apply_flip
+                )
+            self.flip_button.grid(row=1, column = 0)
+
+
+            self.flip_value_label = CTkLabel(
+                self.setting_frame,
+                text="0 for vertical flip",
+                font=("Arial", 16),      
+                padx= 24,
+                pady = 24
+                )
+            self.flip_value_label.grid(row= 2, column= 0, sticky= "w")
+
+            self.flip_value_label = CTkLabel(
+                self.setting_frame,
+                text="1 for horizontal flip",
+                font=("Arial", 16),      
+                padx= 24,
+                pady = 24
+                )
+            self.flip_value_label.grid(row= 3, column= 0, sticky= "w")
+
+            self.flip_value_label = CTkLabel(
+                self.setting_frame,
+                text="-1 for vertical and horizontal flip",
+                font=("Arial", 16),      
+                padx= 24,
+                pady = 24
+                )
+            self.flip_value_label.grid(row= 4, column= 0, sticky= "w")
 
 
 

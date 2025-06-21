@@ -39,6 +39,11 @@ class PhotoController:
             interpolation = INTERPOLATION_MAP[selected_interpolation]
             self.cv_img = transform.resize(self.cv_img, (width, height),interpolation )
             self._refresh_view()
+
+    def apply_flip(self):
+        if self.cv_img is not None:
+            self.cv_img = transform.flip(self.cv_img, value= int(self.view.flip_value_menu.get()))
+            self._refresh_view()
     
     def _refresh_view(self):
         tk_img = cv_to_tk(self.cv_img)
